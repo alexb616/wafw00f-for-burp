@@ -1,0 +1,4800 @@
+{
+ "source": "wafw00f",
+ "signatures": [
+  {
+   "name": "aeSecure (aeSecure)",
+   "slug": "aesecure",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "aeSecure-code",
+      "pattern": ".+?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "aesecure_denied\\.png",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "AireeCDN (Airee)",
+   "slug": "airee",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "Airee",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Cache",
+      "pattern": "(\\w+\\.)?airee\\.cloud",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "airee\\.cloud",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Airlock (Phion/Ergon)",
+   "slug": "airlock",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^al[_-]?(sess|lb)=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "server detected a syntax error in your request",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Alert Logic (Alert Logic)",
+   "slug": "alertlogic",
+   "match": {
+    "op": "and",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<(title|h\\d{1})>requested url cannot be found",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "we are sorry.{0,10}?but the page you are looking for cannot be found",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "back to previous page",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "proceed to homepage",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "reference id",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "AliYunDun (Alibaba Cloud Computing)",
+   "slug": "aliyundun",
+   "match": {
+    "op": "and",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "error(s)?\\.aliyun(dun)?\\.(com|net)?",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "alicdn\\.com\\/sd\\-base\\/static\\/\\d{1,2}\\.\\d{1,2}\\.\\d{1,2}\\/image\\/405\\.png",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Sorry, your request has been blocked as it may cause potential threats to the server\\'s security.",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "status",
+      "status": 405,
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Anquanbao (Anquanbao)",
+   "slug": "anquanbao",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Powered-By-Anquanbao",
+      "pattern": ".+?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "aqb_cc/error/",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Anubis (Techaro)",
+   "slug": "anubis",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "-anubis-auth=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "/\\.within\\.website/x/cmd/anubis/",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<script id=\"anubis_version\"",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<script id=\"anubis_challenge\"",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Protected by.*Anubis.*From.*Techaro",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "github\\.com/TecharoHQ/anubis",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "AnYu (AnYu Technologies)",
+   "slug": "anyu",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "anyu.{0,10}?the green channel",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "your access has been intercepted by anyu",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Azure Application Gateway (Microsoft)",
+   "slug": "applicationgateway",
+   "match": {
+    "op": "and",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<center>Microsoft-Azure-Application-Gateway/v2</center>",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<h1>403 Forbidden</h1>",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Approach (Approach)",
+   "slug": "approach",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "approach.{0,10}?web application (firewall|filtering)",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "approach.{0,10}?infrastructure team",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Armor Defense (Armor)",
+   "slug": "armor",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "blocked by website protection from armor",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "please create an armor support ticket",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "ArvanCloud (ArvanCloud)",
+   "slug": "arvancloud",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "Server",
+    "pattern": "ArvanCloud",
+    "attack": false
+   }
+  },
+  {
+   "name": "ASPA Firewall (ASPA Engineering Co.)",
+   "slug": "aspa",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "ASPA[\\-_]?WAF",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "ASPA-Cache-Status",
+      "pattern": ".+?",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "ASP.NET Generic (Microsoft)",
+   "slug": "aspnetgen",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "iis (\\d+.)+?detailed error",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "potentially dangerous request querystring",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "application error from being viewed remotely (for security reasons)?",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "An application error occurred on the server",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Astra (Czar Securities)",
+   "slug": "astra",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^cz_astra_csrf_cookie",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "astrawebsecurity\\.freshdesk\\.com",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "www\\.getastra\\.com/assets/images",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "AWS Elastic Load Balancer (Amazon)",
+   "slug": "awswaf",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-AMZ-ID",
+      "pattern": ".+?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-AMZ-Request-ID",
+      "pattern": ".+?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^aws.?alb=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "aws.?elb",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Blocked-By-WAF",
+      "pattern": "Blocked_by_custom_response_for_AWSManagedRules.*",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "Azion Edge Firewall (Azion)",
+   "slug": "azion",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "x-azion-edge-pop",
+      "pattern": ".+?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "x-azion-request-id",
+      "pattern": ".+?",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "Baffin Bay (Mastercard)",
+   "slug": "baffinbay",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "server",
+    "pattern": "baffin-bay-inlet",
+    "attack": false
+   }
+  },
+  {
+   "name": "Yunjiasu (Baidu Cloud Computing)",
+   "slug": "baidu",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "yunjiasu.*",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "href=\"/.well-known/yunjiasu-cgi/",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "document.cookie='yjs_use_ob=0",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Barikode (Ethic Ninja)",
+   "slug": "barikode",
+   "match": {
+    "op": "match",
+    "type": "content",
+    "pattern": "<strong>barikode<.strong>",
+    "attack": true
+   }
+  },
+  {
+   "name": "Barracuda (Barracuda Networks)",
+   "slug": "barracuda",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^barra_counter_session=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^BNI__BARRACUDA_LB_COOKIE=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^BNI_persistence=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^BN[IE]S_.*?=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Barracuda.Networks",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Bekchy (Faydata Technologies Inc.)",
+   "slug": "bekchy",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Bekchy.{0,10}?Access Denied",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "bekchy\\.com/report",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Beluga CDN (Beluga)",
+   "slug": "beluga",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "Beluga",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^beluga_request_trail=",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "BinarySec (BinarySec)",
+   "slug": "binarysec",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "BinarySec",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "x-binarysec-via",
+      "pattern": ".+",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "x-binarysec-nocache",
+      "pattern": ".+",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "BitNinja (BitNinja)",
+   "slug": "bitninja",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Security check by BitNinja",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Visitor anti-robot validation",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "BlockDoS (BlockDoS)",
+   "slug": "blockdos",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "Server",
+    "pattern": "blockdos\\.net",
+    "attack": false
+   }
+  },
+  {
+   "name": "Bluedon (Bluedon IST)",
+   "slug": "bluedon",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "BDWAF",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "bluedon web application firewall",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "BulletProof Security Pro (AITpro Security)",
+   "slug": "bulletproof",
+   "match": {
+    "op": "and",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "\\+?bpsMessage",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "403 Forbidden Error Page",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "If you arrived here due to a search",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "CacheFly CDN (CacheFly)",
+   "slug": "cachefly",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "BestCDN",
+      "pattern": "Cachefly",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^cfly_req.*=",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "CacheWall (Varnish)",
+   "slug": "cachewall",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "Varnish",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Varnish",
+      "pattern": ".+",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Cachewall-Action",
+      "pattern": ".+?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Cachewall-Reason",
+      "pattern": ".+?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "security by cachewall",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "403 naughty.{0,10}?not nice!",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "varnish cache server",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "CdnNS Application Gateway (CdnNs/WdidcNet)",
+   "slug": "cdnns",
+   "match": {
+    "op": "match",
+    "type": "content",
+    "pattern": "cdnnswaf application gateway",
+    "attack": true
+   }
+  },
+  {
+   "name": "WP Cerber Security (Cerber Tech)",
+   "slug": "cerber",
+   "match": {
+    "op": "and",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "your request looks suspicious or similar to automated",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "our server stopped processing your request",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "We.re sorry.{0,10}?you are not allowed to proceed",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "requests from spam posting software",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<title>403 Access Forbidden",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "ChinaCache Load Balancer (ChinaCache)",
+   "slug": "chinacache",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "Powered-By-ChinaCache",
+    "pattern": ".+",
+    "attack": false
+   }
+  },
+  {
+   "name": "Chuang Yu Shield (Yunaq)",
+   "slug": "chuangyu",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "www\\.365cyd\\.com",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "help\\.365cyd\\.com/cyd\\-error\\-help.html\\?code=403",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "ACE XML Gateway (Cisco)",
+   "slug": "ciscoacexml",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "Server",
+    "pattern": "ACE XML Gateway",
+    "attack": false
+   }
+  },
+  {
+   "name": "Cloudbric (Penta Security)",
+   "slug": "cloudbric",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<title>Cloudbric.{0,5}?ERROR!",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Your request was blocked by Cloudbric",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "please contact Cloudbric Support",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "cloudbric\\.zendesk\\.com",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Cloudbric Help Center",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "malformed request syntax.{0,4}?invalid request message framing.{0,4}?or deceptive request routing",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Cloudflare (Cloudflare Inc.)",
+   "slug": "cloudflare",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "server",
+      "pattern": "cloudflare",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "server",
+      "pattern": "cloudflare[-_]nginx",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "cf-ray",
+      "pattern": ".+?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "__cfduid",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "Cloudfloor (Cloudfloor DNS)",
+   "slug": "cloudfloordns",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "CloudfloorDNS(.WAF)?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<(title|h\\d{1})>CloudfloorDNS.{0,6}?Web Application Firewall Error",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "www\\.cloudfloordns\\.com/contact",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Cloudfront (Amazon)",
+   "slug": "cloudfront",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "Cloudfront",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Via",
+      "pattern": "([0-9\\.]+?)? \\w+?\\.cloudfront\\.net \\(Cloudfront\\)",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Amz-Cf-Id",
+      "pattern": ".+?",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Cache",
+      "pattern": "Error from Cloudfront",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Generated by cloudfront \\(CloudFront\\)",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Cloud Protector (Rohde & Schwarz CyberSecurity)",
+   "slug": "cloudprotector",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Cloud Protector.*?by Rohde.{3,8}?Schwarz Cybersecurity",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<a href='https?:\\/\\/(?:www\\.)?cloudprotector\\.com\\/'>R.{1,6}?S.Cloud Protector",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Comodo cWatch (Comodo CyberSecurity)",
+   "slug": "comodo",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "Server",
+    "pattern": "Protected by COMODO WAF(.+)?",
+    "attack": false
+   }
+  },
+  {
+   "name": "CrawlProtect (Jean-Denis Brun)",
+   "slug": "crawlprotect",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^crawlprotecttag=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<title>crawlprotect",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "this site is protected by crawlprotect",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "DDoS-GUARD (DDOS-GUARD CORP.)",
+   "slug": "ddosguard",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^__ddg1.*?=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^__ddg2.*?=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^__ddgid.*?=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^__ddgmark.*?=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "ddos-guard",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "DenyALL (Rohde & Schwarz CyberSecurity)",
+   "slug": "denyall",
+   "match": {
+    "op": "and",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "status",
+      "status": 200,
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "reason",
+      "reason": "Condition Intercepted",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Distil (Distil Networks)",
+   "slug": "distil",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "cdn\\.distilnetworks\\.com/images/anomaly\\.detected\\.png",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "distilCaptchaForm",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "distilCallbackGuard",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "DOSarrest (DOSarrest Internet Security)",
+   "slug": "dosarrest",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-DIS-Request-ID",
+      "pattern": ".+",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "DOSarrest(.*)?",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "DotDefender (Applicure Technologies)",
+   "slug": "dotdefender",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-dotDefender-denied",
+      "pattern": ".+?",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "dotdefender blocked your request",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Applicure is the leading provider of web application security",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "DynamicWeb Injection Check (DynamicWeb)",
+   "slug": "dynamicweb",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-403-Status-By",
+      "pattern": "dw.inj.check",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "by dynamic check(.{0,10}?module)?",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Edgecast (Verizon Digital Media)",
+   "slug": "edgecast",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "^ECD(.+)?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "^ECS(.*)?",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "Eisoo Cloud Firewall (Eisoo)",
+   "slug": "eisoo",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "EisooWAF(\\-AZURE)?/?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<link.{0,10}?href=\\\"/eisoo\\-firewall\\-block\\.css",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "www\\.eisoo\\.com",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "&copy; \\d{4} Eisoo Inc",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Envoy (EnvoyProxy)",
+   "slug": "envoy",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "server",
+      "pattern": "envoy",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "x-envoy-upstream-service-time",
+      "pattern": ".+",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "x-envoy-downstream-service-cluster",
+      "pattern": ".+",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "x-envoy-downstream-service-node",
+      "pattern": ".+",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "x-envoy-external-address",
+      "pattern": ".+",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "x-envoy-force-trace",
+      "pattern": ".+",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "x-envoy-internal",
+      "pattern": ".+",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "x-envoy-original-dst-host",
+      "pattern": ".+",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "x-envoy-original-path",
+      "pattern": ".+",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "x-envoy-local-overloaded",
+      "pattern": ".+",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "Expression Engine (EllisLab)",
+   "slug": "expressionengine",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^exp_track.+?=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^exp_last_.+?=",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "invalid get data",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "BIG-IP AP Manager (F5 Networks)",
+   "slug": "f5bigipapm",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "cookie",
+        "name": "Set-Cookie",
+        "pattern": "^LastMRH_Session",
+        "attack": false
+       },
+       {
+        "op": "match",
+        "type": "cookie",
+        "name": "Set-Cookie",
+        "pattern": "^MRHSession",
+        "attack": false
+       }
+      ]
+     },
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "cookie",
+        "name": "Set-Cookie",
+        "pattern": "^MRHSession",
+        "attack": false
+       },
+       {
+        "op": "match",
+        "type": "header",
+        "name": "Server",
+        "pattern": "Big([-_])?IP",
+        "attack": true
+       }
+      ]
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^F5_fullWT",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^F5_fullWT",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^F5_HT_shrinked",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "BIG-IP AppSec Manager (F5 Networks)",
+   "slug": "f5bigipasm",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "the requested url was rejected",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "please consult with your administrator",
+        "attack": true
+       }
+      ]
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "TS[a-fA-F0-9]{8}=.+",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "TS[a-fA-F0-9]{6}=.+",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "BIG-IP Local Traffic Manager (F5 Networks)",
+   "slug": "f5bigipltm",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^bigipserver",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Cnection",
+      "pattern": "close",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "FirePass (F5 Networks)",
+   "slug": "f5firepass",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "cookie",
+        "name": "Set-Cookie",
+        "pattern": "^VHOST",
+        "attack": false
+       },
+       {
+        "op": "match",
+        "type": "header",
+        "name": "Location",
+        "pattern": "\\/my\\.logon\\.php3",
+        "attack": false
+       }
+      ]
+     },
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "cookie",
+        "name": "Set-Cookie",
+        "pattern": "^F5_fire.+?",
+        "attack": false
+       },
+       {
+        "op": "match",
+        "type": "cookie",
+        "name": "Set-Cookie",
+        "pattern": "^F5_passid_shrinked",
+        "attack": false
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "Trafficshield (F5 Networks)",
+   "slug": "f5trafficshield",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^ASINFO=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "F5-TrafficShield",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "Fastly (Fastly CDN)",
+   "slug": "fastly",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Fastly-Request-ID",
+      "pattern": "\\w+",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Served-By",
+      "pattern": "^cache-[a-z]{3}\\d+-[A-Z]{3}",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "FortiGate (Fortinet)",
+   "slug": "fortigate",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "//globalurl.fortinet.net",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "FortiGate Application Control",
+        "attack": true
+       }
+      ]
+     },
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "Web Application Firewall",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "Event ID",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "//globalurl.fortinet.net",
+        "attack": true
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "FortiGuard (Fortinet)",
+   "slug": "fortiguard",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "FortiGuard Intrusion Prevention",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "//globalurl.fortinet.net",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "FortiWeb (Fortinet)",
+   "slug": "fortiweb",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^FORTIWAFSID=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": ".fgd_icon",
+      "attack": true
+     },
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "fgd_icon",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "web.page.blocked",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "url",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "attack.id",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "message.id",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "client.ip",
+        "attack": true
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "Azure Front Door (Microsoft)",
+   "slug": "frontdoor",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "X-Azure-Ref",
+    "pattern": ".+?",
+    "attack": false
+   }
+  },
+  {
+   "name": "Google Cloud App Armor (Google Cloud)",
+   "slug": "gcparmor",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "Via",
+    "pattern": "1.1 google",
+    "attack": false
+   }
+  },
+  {
+   "name": "GoDaddy Website Protection (GoDaddy)",
+   "slug": "godaddy",
+   "match": {
+    "op": "match",
+    "type": "content",
+    "pattern": "GoDaddy (security|website firewall)",
+    "attack": true
+   }
+  },
+  {
+   "name": "Greywizard (Grey Wizard)",
+   "slug": "greywizard",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "greywizard",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<(title|h\\d{1})>Grey Wizard",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "contact the website owner or Grey Wizard",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "We.ve detected attempted attack or non standard traffic from your ip address",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Huawei Cloud Firewall (Huawei)",
+   "slug": "huaweicloud",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^HWWAFSESID=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "HuaweiCloudWAF",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "hwclouds\\.com",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "hws_security@",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "HyperGuard (Art of Defense)",
+   "slug": "hyperguard",
+   "match": {
+    "op": "match",
+    "type": "cookie",
+    "name": "Set-Cookie",
+    "pattern": "^WODSESSION=",
+    "attack": false
+   }
+  },
+  {
+   "name": "DataPower (IBM)",
+   "slug": "ibmdatapower",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "X-Backside-Transport",
+    "pattern": "(OK|FAIL)",
+    "attack": false
+   }
+  },
+  {
+   "name": "Imunify360 (CloudLinux)",
+   "slug": "imunify360",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "imunify360.{0,10}?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "protected.by.{0,10}?imunify360",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "powered.by.{0,10}?imunify360",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "imunify360.preloader",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Incapsula (Imperva Inc.)",
+   "slug": "incapsula",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^incap_ses.*?=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^visid_incap.*?=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "incapsula incident id",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "powered by incapsula",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "/_Incapsula_Resource",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "IndusGuard (Indusface)",
+   "slug": "indusguard",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "IF_WAF",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "This website is secured against online attacks. Your request was blocked",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Instart DX (Instart Logic)",
+   "slug": "instartdx",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Instart-Request-ID",
+      "pattern": ".+",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Instart-Cache",
+      "pattern": ".+",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Instart-WL",
+      "pattern": ".+",
+      "attack": false
+     },
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "the requested url was rejected",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "please consult with your administrator",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "your support id is",
+        "attack": true
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "ISA Server (Microsoft)",
+   "slug": "isaserver",
+   "match": {
+    "op": "match",
+    "type": "content",
+    "pattern": "The.{0,10}?(isa.)?server.{0,10}?denied the specified uniform resource locator \\(url\\)",
+    "attack": true
+   }
+  },
+  {
+   "name": "Janusec Application Gateway (Janusec)",
+   "slug": "janusec",
+   "match": {
+    "op": "match",
+    "type": "content",
+    "pattern": "janusec application gateway",
+    "attack": true
+   }
+  },
+  {
+   "name": "Jiasule (Jiasule)",
+   "slug": "jiasule",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "jiasule\\-waf",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^jsl_tracking(.+)?=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "__jsluid=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "notice\\-jiasule",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "static\\.jiasule\\.com",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Kemp LoadMaster (Progress Software)",
+   "slug": "kemp",
+   "match": {
+    "op": "and",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-ServedBy",
+      "pattern": "KEMP-LM",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "status",
+      "status": 403,
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<title>403 Forbidden</title>",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "KeyCDN (KeyCDN)",
+   "slug": "keycdn",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "Server",
+    "pattern": "KeyCDN",
+    "attack": false
+   }
+  },
+  {
+   "name": "KS-WAF (KnownSec)",
+   "slug": "knownsec",
+   "match": {
+    "op": "match",
+    "type": "content",
+    "pattern": "/ks[-_]waf[-_]error\\.png",
+    "attack": true
+   }
+  },
+  {
+   "name": "Kona SiteDefender (Akamai)",
+   "slug": "kona",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "AkamaiGHost",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "AkamaiGHost",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "LimeLight CDN (LimeLight)",
+   "slug": "limelight",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^limelight",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^l[mg]_sessid=",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "Link11 WAAP (Link11)",
+   "slug": "link11",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "server",
+    "pattern": "rhino-core-shield",
+    "attack": false
+   }
+  },
+  {
+   "name": "LiteSpeed (LiteSpeed Technologies)",
+   "slug": "litespeed",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "header",
+        "name": "Server",
+        "pattern": "LiteSpeed",
+        "attack": false
+       },
+       {
+        "op": "match",
+        "type": "status",
+        "status": 403,
+        "attack": true
+       }
+      ]
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Proudly powered by litespeed web server",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "www\\.litespeedtech\\.com/error\\-page",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Malcare (Inactiv)",
+   "slug": "malcare",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "firewall.{0,15}?powered.by.{0,15}?malcare.{0,15}?pro",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "blocked because of malicious activities",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "MaxCDN (MaxCDN)",
+   "slug": "maxcdn",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "X-CDN",
+    "pattern": "maxcdn",
+    "attack": false
+   }
+  },
+  {
+   "name": "Mission Control Shield (Mission Control)",
+   "slug": "missioncontrol",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "Server",
+    "pattern": "Mission Control Application Shield",
+    "attack": false
+   }
+  },
+  {
+   "name": "ModSecurity (SpiderLabs)",
+   "slug": "modsecurity",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "(mod_security|Mod_Security|NOYB)",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "This error was generated by Mod.?Security",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "rules of the mod.security.module",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "mod.security.rules triggered",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Protected by Mod.?Security",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "/modsecurity[\\-_]errorpage/",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "modsecurity iis",
+      "attack": true
+     },
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "reason",
+        "reason": "ModSecurity Action",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "status",
+        "status": 403,
+        "attack": true
+       }
+      ]
+     },
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "reason",
+        "reason": "ModSecurity Action",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "status",
+        "status": 406,
+        "attack": true
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "NAXSI (NBS Systems)",
+   "slug": "naxsi",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Data-Origin",
+      "pattern": "^naxsi(.+)?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "naxsi(.+)?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "blocked by naxsi",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "naxsi blocked information",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Nemesida (PentestIt)",
+   "slug": "nemesida",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "@?nemesida(\\-security)?\\.com",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Suspicious activity detected.{0,10}?Access to the site is blocked",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "nwaf@",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "status",
+      "status": 222,
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "NetContinuum (Barracuda Networks)",
+   "slug": "netcontinuum",
+   "match": {
+    "op": "match",
+    "type": "cookie",
+    "name": "Set-Cookie",
+    "pattern": "^NCI__SessionId=",
+    "attack": false
+   }
+  },
+  {
+   "name": "NetScaler AppFirewall (Citrix Systems)",
+   "slug": "netscaler",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Via",
+      "pattern": "NS\\-CACHE",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^(ns_af=|citrix_ns_id|NSC_)",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "(NS Transaction|AppFW Session) id",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Violation Category.{0,5}?APPFW_",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Citrix\\|NetScaler",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Cneonction",
+      "pattern": "^(keep alive|close)",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "nnCoection",
+      "pattern": "^(keep alive|close)",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "NevisProxy (AdNovum)",
+   "slug": "nevisproxy",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^Navajo",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^NP_ID",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "Newdefend (NewDefend)",
+   "slug": "newdefend",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "Newdefend",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "www\\.newdefend\\.com/feedback",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "/nd\\-block/",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "NexusGuard Firewall (NexusGuard)",
+   "slug": "nexusguard",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Powered by Nexusguard",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "nexusguard\\.com/wafpage/.+#\\d{3};",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "NinjaFirewall (NinTechNet)",
+   "slug": "ninja",
+   "match": {
+    "op": "and",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<title>NinjaFirewall.{0,10}?\\d{3}.forbidden",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "For security reasons?.{0,10}?it was blocked and logged",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "NSFocus (NSFocus Global Inc.)",
+   "slug": "nsfocus",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "Server",
+    "pattern": "NSFocus",
+    "attack": false
+   }
+  },
+  {
+   "name": "NullDDoS Protection (NullDDoS)",
+   "slug": "nullddos",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "Server",
+    "pattern": "NullDDoS(.System)?",
+    "attack": false
+   }
+  },
+  {
+   "name": "OnMessage Shield (BlackBaud)",
+   "slug": "onmessage",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Engine",
+      "pattern": "onMessage Shield",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Blackbaud K\\-12 conducts routine maintenance",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "onMessage SHEILD",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "maintenance\\.blackbaud\\.com",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "status\\.blackbaud\\.com",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Open-Resty Lua Nginx (FLOSS)",
+   "slug": "openresty",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "header",
+        "name": "Server",
+        "pattern": "^openresty/[0-9\\.]+?",
+        "attack": false
+       },
+       {
+        "op": "match",
+        "type": "status",
+        "status": 403,
+        "attack": true
+       }
+      ]
+     },
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "openresty/[0-9\\.]+?",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "status",
+        "status": 406,
+        "attack": true
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "Oracle Cloud (Oracle)",
+   "slug": "oraclecloud",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<title>fw_error_www",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "src=\\\"/oralogo_small\\.gif\\\"",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "www\\.oracleimg\\.com/us/assets/metrics/ora_ocom\\.js",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Palo Alto Next Gen Firewall (Palo Alto Networks)",
+   "slug": "paloalto",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Download of virus.spyware blocked",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Palo Alto Next Generation Security Platform",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "360PanYun (360 Technologies)",
+   "slug": "panyun360",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "panyun",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Panyun-Request-ID",
+      "pattern": ".+?",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Panyun-Error-Reason",
+      "pattern": ".+?",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Panyun-Error-Step",
+      "pattern": ".+?",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "PentaWAF (Global Network Services)",
+   "slug": "pentawaf",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "PentaWaf(/[0-9\\.]+)?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Penta.?Waf/[0-9\\.]+?.server",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "PerimeterX (PerimeterX)",
+   "slug": "perimeterx",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "www\\.perimeterx\\.(com|net)/whywasiblocked",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "client\\.perimeterx\\.(net|com)",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "denied because we believe you are using automation tools",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "pkSecurity IDS (pkSec)",
+   "slug": "pksec",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "pk.?Security.?Module",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Security.Alert",
+      "attack": true
+     },
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "As this could be a potential hack attack",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "A safety critical (call|request) was (detected|discovered) and blocked",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "maximum number of reloads per minute and prevented access",
+        "attack": true
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "PowerCDN (PowerCDN)",
+   "slug": "powercdn",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Via",
+      "pattern": "(.*)?powercdn.com(.*)?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Cache",
+      "pattern": "(.*)?powercdn.com(.*)?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-CDN",
+      "pattern": "PowerCDN",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "Profense (ArmorLogic)",
+   "slug": "profense",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "Profense",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^PLBSID=",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "PT Application Firewall (Positive Technologies)",
+   "slug": "ptaf",
+   "match": {
+    "op": "and",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<h1.{0,10}?Forbidden",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<pre>Request.ID:.{0,10}?\\d{4}\\-(\\d{2})+.{0,35}?pre>",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Puhui (Puhui)",
+   "slug": "puhui",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "Server",
+    "pattern": "Puhui[\\-_]?WAF",
+    "attack": false
+   }
+  },
+  {
+   "name": "Qcloud (Tencent Cloud)",
+   "slug": "qcloud",
+   "match": {
+    "op": "and",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "腾讯云Web应用防火墙",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "status",
+      "status": 403,
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Qiniu (Qiniu CDN)",
+   "slug": "qiniu",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "X-Qiniu-CDN",
+    "pattern": "\\d+?",
+    "attack": false
+   }
+  },
+  {
+   "name": "Qrator (Qrator)",
+   "slug": "qrator",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "Server",
+    "pattern": "QRATOR",
+    "attack": false
+   }
+  },
+  {
+   "name": "AppWall (Radware)",
+   "slug": "radware",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "CloudWebSec\\.radware\\.com",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-SL-CompState",
+      "pattern": ".+",
+      "attack": false
+     },
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "because we have detected unauthorized activity",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "<title>Unauthorized Request Blocked",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "if you believe that there has been some mistake",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "\\?Subject=Security Page.{0,10}?Case Number",
+        "attack": true
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "Reblaze (Reblaze)",
+   "slug": "reblaze",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^rbzid",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "Reblaze Secure Web Gateway",
+      "attack": false
+     },
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "current session has been terminated",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "do not hesitate to contact us",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "access denied \\(\\d{3}\\)",
+        "attack": true
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "Reflected Networks (Reflected Networks)",
+   "slug": "reflected",
+   "match": {
+    "op": "and",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<img class=\"logo loader\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbgAAABHCAIAAAD6G8WcAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "status",
+      "status": 403,
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "content=\"Request is denied\"",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<title>Forbidden</title>",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "RSFirewall (RSJoomla!)",
+   "slug": "rsfirewall",
+   "match": {
+    "op": "match",
+    "type": "content",
+    "pattern": "com_rsfirewall_(\\d{3}_forbidden|event)?",
+    "attack": true
+   }
+  },
+  {
+   "name": "RequestValidationMode (Microsoft)",
+   "slug": "rvmode",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Request Validation has detected a potentially dangerous client input",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "ASP\\.NET has detected data in the request",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "HttpRequestValidationException",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Sabre Firewall (Sabre)",
+   "slug": "sabre",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "dxsupport\\.sabre\\.com",
+      "attack": true
+     },
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "<title>Application Firewall Error",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "add some important details to the email for us to investigate",
+        "attack": true
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "Safe3 Web Firewall (Safe3)",
+   "slug": "safe3",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "Safe3 Web Firewall",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Powered-By",
+      "pattern": "Safe3WAF/[\\.0-9]+?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Safe3waf/[0-9\\.]+?",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Safedog (SafeDog)",
+   "slug": "safedog",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^safedog\\-flow\\-item=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "Safedog",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "safedogsite/broswer_logo\\.jpg",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "404\\.safedog\\.cn/sitedog_stat.html",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "404\\.safedog\\.cn/images/safedogsite/head\\.png",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Safeline (Chaitin Tech.)",
+   "slug": "safeline",
+   "match": {
+    "op": "match",
+    "type": "content",
+    "pattern": "safeline|<!\\-\\-\\sevent id:",
+    "attack": true
+   }
+  },
+  {
+   "name": "Scutum (Secure Sky Technology Inc.)",
+   "slug": "scutum",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "Server",
+    "pattern": "Scutum",
+    "attack": false
+   }
+  },
+  {
+   "name": "SecKing (SecKing)",
+   "slug": "secking",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "Server",
+    "pattern": "secking(.?waf)?",
+    "attack": false
+   }
+  },
+  {
+   "name": "SecuPress WP Security (SecuPress)",
+   "slug": "secupress",
+   "match": {
+    "op": "match",
+    "type": "content",
+    "pattern": "<(title|h\\d{1})>SecuPress",
+    "attack": true
+   }
+  },
+  {
+   "name": "Secure Entry (United Security Providers)",
+   "slug": "secureentry",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "Server",
+    "pattern": "Secure Entry Server",
+    "attack": false
+   }
+  },
+  {
+   "name": "eEye SecureIIS (BeyondTrust)",
+   "slug": "secureiis",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "SecureIIS is an internet security application",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Download SecureIIS Personal Edition",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "https?://www\\.eeye\\.com/Secure\\-?IIS",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "SecureSphere (Imperva Inc.)",
+   "slug": "securesphere",
+   "match": {
+    "op": "and",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<(title|h2)>Error",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "The incident ID is",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "This page can't be displayed",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Contact support for additional information",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "SEnginx (Neusoft)",
+   "slug": "senginx",
+   "match": {
+    "op": "match",
+    "type": "content",
+    "pattern": "SENGINX\\-ROBOT\\-MITIGATION",
+    "attack": true
+   }
+  },
+  {
+   "name": "ServerDefender VP (Port80 Software)",
+   "slug": "serverdefender",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "X-Pint",
+    "pattern": "p(ort\\-)?80",
+    "attack": false
+   }
+  },
+  {
+   "name": "Shadow Daemon (Zecure)",
+   "slug": "shadowd",
+   "match": {
+    "op": "and",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<h\\d{1}>\\d{3}.forbidden<.h\\d{1}>",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "request forbidden by administrative rules",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Shieldon Firewall (Shieldon.io)",
+   "slug": "shieldon",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "Please solve CAPTCHA",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "shieldon_captcha",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "Unusual behavior detected",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "status-user-info",
+        "attack": true
+       }
+      ]
+     },
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "Access denied",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "The IP address you are using has been blocked.",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "status-user-info",
+        "attack": true
+       }
+      ]
+     },
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "Please line up",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "This page is limiting the number of people online. Please wait a moment.",
+        "attack": true
+       }
+      ]
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "[Xx]-[Pp]rotected-[Bb]y",
+      "pattern": "shieldon.io",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "Shield Security (One Dollar Plugin)",
+   "slug": "shieldsecurity",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "You were blocked by the Shield",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "remaining transgression\\(s\\) against this site",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Something in the URL.{0,5}?Form or Cookie data wasn\\'t appropriate",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "SiteGround (SiteGround)",
+   "slug": "siteground",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Our system thinks you might be a robot!",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "access is restricted due to a security rule",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "SiteGuard (EG Secure Solutions Inc.)",
+   "slug": "siteguard",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Powered by SiteGuard",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "The server refuse to browse the page",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Sitelock (TrueShield)",
+   "slug": "sitelock",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "SiteLock will remember you",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Sitelock is leader in Business Website Security Services",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "sitelock[_\\-]shield([_\\-]logo|[\\-_]badge)?",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "SiteLock incident ID",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "SonicWall (Dell)",
+   "slug": "sonicwall",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "SonicWALL",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<(title|h\\d{1})>Web Site Blocked",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "\\+?nsa_banner",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "UTM Web Protection (Sophos)",
+   "slug": "sophos",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "www\\.sophos\\.com",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Powered by.?(Sophos)? UTM Web Protection",
+      "attack": true
+     },
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "<title>Access to the requested URL was blocked",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "Access to the requested URL was blocked",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "incident was logged with the following log identifier",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "Inbound Anomaly Score exceeded",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "Your cache administrator is",
+        "attack": true
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "Squarespace (Squarespace)",
+   "slug": "squarespace",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "Squarespace",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^SS_ANALYTICS_ID=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^SS_MATTR=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^SS_MID=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "SS_CVT=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "status\\.squarespace\\.com",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "BRICK\\-\\d{2}",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "SquidProxy IDS (SquidProxy)",
+   "slug": "squidproxy",
+   "match": {
+    "op": "and",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "squid(/[0-9\\.]+)?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Access control configuration prevents your request",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "StackPath (StackPath)",
+   "slug": "stackpath",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<title>StackPath[^<]+</title>",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Protected by <a href=\"https?:\\/\\/(?:www\\.)?stackpath\\.com\\/\"[^>]+>StackPath",
+      "attack": true
+     },
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "is using a security service for protection against online attacks",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "An action has triggered the service and blocked your request",
+        "attack": true
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "Sucuri CloudProxy (Sucuri Inc.)",
+   "slug": "sucuri",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Sucuri-ID",
+      "pattern": ".+?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Sucuri-Cache",
+      "pattern": ".+?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "Sucuri(\\-Cloudproxy)?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Sucuri-Block",
+      "pattern": ".+?",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Access Denied.{0,6}?Sucuri Website Firewall",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<title>Sucuri WebSite Firewall.{0,6}?(CloudProxy)?.{0,6}?Access Denied",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "sucuri\\.net/privacy\\-policy",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "cdn\\.sucuri\\.net/sucuri[-_]firewall[-_]block\\.css",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "cloudproxy@sucuri\\.net",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Tencent Cloud Firewall (Tencent Technologies)",
+   "slug": "tencent",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "waf\\.tencent\\-?cloud\\.com/",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "window\\.location\\.href.{1,3}?https?://waf.tencent(?:-?cloud)?.com/(?:403|501)page\\.html",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Teros (Citrix Systems)",
+   "slug": "teros",
+   "match": {
+    "op": "match",
+    "type": "cookie",
+    "name": "Set-Cookie",
+    "pattern": "^st8id=",
+    "attack": false
+   }
+  },
+  {
+   "name": "ThreatX (A10 Networks)",
+   "slug": "threatx",
+   "match": {
+    "op": "and",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Request-Id",
+      "pattern": ".*",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "^Forbidden - ID: ([a-fA-F0-9]{32})$",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "status",
+      "status": 403,
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "TransIP Web Firewall (TransIP)",
+   "slug": "transip",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-TransIP-Backend",
+      "pattern": ".+",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-TransIP-Balancer",
+      "pattern": ".+",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "UEWaf (UCloud)",
+   "slug": "uewaf",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "uewaf(/[0-9\\.]+)?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "/uewaf_deny_pages/default/img/",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "ucloud\\.cn",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "URLMaster SecurityCheck (iFinity/DotNetNuke)",
+   "slug": "urlmaster",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-UrlMaster-Debug",
+      "pattern": ".+",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-UrlMaster-Ex",
+      "pattern": ".+",
+      "attack": false
+     },
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "Ur[li]RewriteModule",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "SecurityCheck",
+        "attack": true
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "URLScan (Microsoft)",
+   "slug": "urlscan",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Rejected[-_]By[_-]UrlScan",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "A custom filter or module.{0,4}?such as URLScan",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Variti (Variti)",
+   "slug": "variti",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "Server",
+    "pattern": "Variti(?:\\/[a-z0-9\\.\\-]+)?",
+    "attack": false
+   }
+  },
+  {
+   "name": "Varnish (OWASP)",
+   "slug": "varnish",
+   "match": {
+    "op": "match",
+    "type": "content",
+    "pattern": "Request rejected by xVarnish\\-WAF",
+    "attack": true
+   }
+  },
+  {
+   "name": "Vercel WAF (Vercel)",
+   "slug": "vercel",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<title>Vercel Security Checkpoint</title>",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "/vercel/security/",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Viettel (Cloudrity)",
+   "slug": "viettel",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Access Denied.{0,10}?Viettel WAF",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "cloudrity\\.com\\.(vn)?/",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Viettel WAF System",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "VirusDie (VirusDie LLC)",
+   "slug": "virusdie",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "cdn\\.virusdie\\.ru/splash/firewallstop\\.png",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "copy.{0,10}?Virusdie\\.ru",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Wallarm (Wallarm Inc.)",
+   "slug": "wallarm",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "Server",
+    "pattern": "nginx[\\-_]wallarm",
+    "attack": false
+   }
+  },
+  {
+   "name": "WatchGuard (WatchGuard Technologies)",
+   "slug": "watchguard",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "WatchGuard",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Request denied by WatchGuard Firewall",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "WatchGuard Technologies Inc\\.",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "WebARX (WebARX Security Solutions)",
+   "slug": "webarx",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "WebARX.{0,10}?Web Application Firewall",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "www\\.webarxsecurity\\.com",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "/wp\\-content/plugins/webarx/includes/",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "WebKnight (AQTRONIX)",
+   "slug": "webknight",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "status",
+        "status": 999,
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "reason",
+        "reason": "No Hacking",
+        "attack": true
+       }
+      ]
+     },
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "status",
+        "status": 404,
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "reason",
+        "reason": "Hack Not Found",
+        "attack": true
+       }
+      ]
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "WebKnight Application Firewall Alert",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "What is webknight\\?",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "AQTRONIX WebKnight is an application firewall",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "WebKnight will take over and protect",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "aqtronix\\.com/WebKnight",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "AQTRONIX.{0,10}?WebKnight",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "WebLand (WebLand)",
+   "slug": "webland",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "Server",
+    "pattern": "protected by webland",
+    "attack": false
+   }
+  },
+  {
+   "name": "RayWAF (WebRay Solutions)",
+   "slug": "webray",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "WebRay\\-WAF",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "DrivedBy",
+      "pattern": "RaySrv.RayEng/[0-9\\.]+?",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "WebSEAL (IBM)",
+   "slug": "webseal",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "WebSEAL",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "This is a WebSEAL error message template file",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "WebSEAL server received an invalid HTTP request",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "WebTotem (WebTotem)",
+   "slug": "webtotem",
+   "match": {
+    "op": "match",
+    "type": "content",
+    "pattern": "The current request was blocked.{0,8}?>WebTotem",
+    "attack": true
+   }
+  },
+  {
+   "name": "West263 CDN (West263CDN)",
+   "slug": "west263cdn",
+   "match": {
+    "op": "match",
+    "type": "header",
+    "name": "X-Cache",
+    "pattern": "WS?T263CDN",
+    "attack": false
+   }
+  },
+  {
+   "name": "Wordfence (Defiant)",
+   "slug": "wordfence",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "wf[_\\-]?WAF",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Generated by Wordfence",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "broke one of (the )?Wordfence (advanced )?blocking rules",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "/plugins/wordfence",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "wpmudev WAF (Incsub)",
+   "slug": "wpmudev",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "href=\"http(s)?.\\/\\/wpmudev.com\\/.{0,15}?",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "Click on the Logs tab, then the WAF Log.",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "Choose your site from the list",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "status",
+        "status": 403,
+        "attack": true
+       }
+      ]
+     },
+     {
+      "op": "and",
+      "nodes": [
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "<h1>Whoops, this request has been blocked!",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "This request has been deemed suspicious",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "content",
+        "pattern": "possible attack on our servers.",
+        "attack": true
+       },
+       {
+        "op": "match",
+        "type": "status",
+        "status": 403,
+        "attack": true
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "WTS-WAF (WTS)",
+   "slug": "wts",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "wts/[0-9\\.]+?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "<(title|h\\d{1})>WTS\\-WAF",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "360WangZhanBao (360 Technologies)",
+   "slug": "wzb360",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "qianxin\\-waf",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "WZWS-Ray",
+      "pattern": ".+?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Powered-By-360WZB",
+      "pattern": ".+?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "wzws\\-waf\\-cgi/",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "wangshan\\.360\\.cn",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "status",
+      "status": 493,
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "XLabs Security WAF (XLabs)",
+   "slug": "xlabssecuritywaf",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-CDN",
+      "pattern": "XLabs Security",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Secured",
+      "pattern": "^By XLabs Security",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "XLabs[-_]?.?WAF",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Xuanwudun (Xuanwudun)",
+   "slug": "xuanwudun",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "admin\\.dbappwaf\\.cn/(index\\.php/Admin/ClientMisinform/)?",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "class=.(db[\\-_]?)?waf(.)?([\\-_]?row)?>",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Yundun (Yundun)",
+   "slug": "yundun",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "YUNDUN",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Cache",
+      "pattern": "YUNDUN",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^yd_cookie=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Blocked by YUNDUN Cloud WAF",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "yundun\\.com/yd[-_]http[_-]error/",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "www\\.yundun\\.com/(static/js/fingerprint\\d{1}?\\.js)?",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Yunsuo (Yunsuo)",
+   "slug": "yunsuo",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^yunsuo_session=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "class=\\\"yunsuologo\\\"",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "YXLink (YxLink Technologies)",
+   "slug": "yxlink",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^yx_ci_session=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "cookie",
+      "name": "Set-Cookie",
+      "pattern": "^yx_language=",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "Yxlink([\\-_]?WAF)?",
+      "attack": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "Zenedge (Zenedge)",
+   "slug": "zenedge",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "ZENEDGE",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "header",
+      "name": "X-Zen-Fury",
+      "pattern": ".+?",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "/__zenedge/",
+      "attack": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "ZScaler (Accenture)",
+   "slug": "zscaler",
+   "match": {
+    "op": "or",
+    "nodes": [
+     {
+      "op": "match",
+      "type": "header",
+      "name": "Server",
+      "pattern": "ZScaler",
+      "attack": false
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Access Denied.{0,10}?Accenture Policy",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "policies\\.accenture\\.com",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "login\\.zscloud\\.net/img_logo_new1\\.png",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Zscaler to protect you from internet threats",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Internet Security by ZScaler",
+      "attack": true
+     },
+     {
+      "op": "match",
+      "type": "content",
+      "pattern": "Accenture.{0,10}?webfilters indicate that the site likely contains",
+      "attack": true
+     }
+    ]
+   }
+  }
+ ]
+}
