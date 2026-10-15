@@ -1,0 +1,49 @@
+name: Release
+
+# Builds the self-contained extension JAR and publishes it as a GitHub Release
+# asset whenever a version tag (e.g. v0.1.0) is pushed. The JAR is pure Java 17
+# bytecode, so the single artifact works on Windows, macOS and Linux.
+on:
+  push:
+    tags:
+      - 'v*'
+  # Allows cutting a release from the Actions tab without pushing a tag.
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to release (e.g. v0.1.0). Must already exist.'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the tagged commit
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Build the JAR
+        run: |
+          chmod +x gradlew
+          ./gradlew jar --no-daemon
+
+      - name: List build output
+        run: ls -l build/libs
+
+      - name: Publish the release with the JAR attached
+        uses: softprops/action-gh-release@v2
+        with:
+          # On a tag push the tag is taken from the ref; on manual dispatch it
+          # comes from the workflow input.
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          name: ${{ github.event.inputs.tag || github.ref_name }}
+          generate_release_notes: true
+          files: build/libs/*.jar
