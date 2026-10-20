@@ -1,8 +1,8 @@
 package com.wafw00f.burp.engine;
 
 /**
- * Una firma de WAF: nombre "Firewall (Fabricante)", slug (fichero original)
- * y el árbol de condiciones. {@link #matches} equivale a is_waf(self) de wafw00f.
+ * A WAF signature: name "Firewall (Manufacturer)", slug (original file name)
+ * and the condition tree. {@link #matches} is wafw00f's is_waf(self).
  */
 public final class Signature {
 

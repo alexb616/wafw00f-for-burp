@@ -17,10 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Sondeo activo completo de un host, equivalente al flujo identwaf()+genericdetect()
- * de wafw00f: envía la request normal y la centralAttack, evalúa las firmas y, si
- * ninguna casa (o en modo findAll), ejecuta la detección genérica. Reporta cada
- * hallazgo nuevo como AuditIssue y devuelve la lista para la UI.
+ * Full active probe for a host, mirroring wafw00f's identwaf()+genericdetect()
+ * flow: sends the normal request and the centralAttack, evaluates the
+ * signatures and, if none match (or in findAll mode), runs the generic
+ * detection. Each new finding is reported as an AuditIssue; the list is also
+ * returned so the UI can show it.
  */
 public final class ActiveScanner {
 
@@ -37,8 +38,8 @@ public final class ActiveScanner {
     }
 
     /**
-     * @return lista de WAFs detectados (vacía = nada detectado); {@code null} si el
-     *         sitio no respondió a la request normal (caído o inalcanzable).
+     * @return list of detected WAFs (empty = nothing detected); {@code null} if
+     *         the site did not respond to the normal request (down or unreachable).
      */
     public List<DetectionResult> scan(String url, boolean findAll) {
         ActiveProber prober = new ActiveProber(api);
@@ -47,13 +48,13 @@ public final class ActiveScanner {
         try {
             base = prober.base(url);
         } catch (RuntimeException ex) {
-            api.logging().logToError("[wafw00f] URL inválida '" + url + "': " + ex);
+            api.logging().logToError("[wafw00f] invalid URL '" + url + "': " + ex);
             return null;
         }
 
         HttpRequestResponse normalRR = prober.send(base);
         if (normalRR == null || normalRR.response() == null) {
-            return null; // sitio caído / inalcanzable
+            return null; // site down / unreachable
         }
 
         HttpRequestResponse attackRR = prober.send(prober.centralAttack(base));
@@ -85,7 +86,7 @@ public final class ActiveScanner {
             }
         }
 
-        // Nada detectado tras el sondeo activo: se reporta explícitamente "No WAF detected".
+        // Nothing detected after the active probe: explicitly report "No WAF detected".
         if (results.isEmpty()) {
             DetectionResult none = DetectionResult.none(DetectionMode.ACTIVE,
                     "Active probe performed; no WAF signature or generic indicator matched.", normalRR);

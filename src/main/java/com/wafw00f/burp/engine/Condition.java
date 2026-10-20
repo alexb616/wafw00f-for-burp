@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- * Nodo del árbol booleano de una firma. Replica las primitivas de wafw00f
- * (matchHeader / matchCookie / matchContent / matchStatus / matchReason) y su
- * composición (OR entre checks, AND dentro de check_schema_*).
+ * A node in a signature's boolean tree. Mirrors wafw00f's primitives
+ * (matchHeader / matchCookie / matchContent / matchStatus / matchReason) and
+ * their composition (OR between checks, AND inside check_schema_*).
  *
- * Las regex se compilan una sola vez, con CASE_INSENSITIVE (wafw00f usa re.I)
- * y DOTALL deliberadamente DESACTIVADO, para que '.' no cruce saltos de línea,
- * igual que el re.search por defecto de Python.
+ * Regexes are compiled once with CASE_INSENSITIVE (wafw00f uses re.I) and
+ * DOTALL deliberately DISABLED, so '.' does not cross line breaks — matching
+ * Python's default re.search behaviour.
  */
 public final class Condition {
 
@@ -26,7 +26,7 @@ public final class Condition {
     // MATCH
     private final MType type;
     private final String headerName;
-    private final Pattern pattern;   // header/cookie/content; null si la regex no compiló
+    private final Pattern pattern;   // header/cookie/content; null if regex failed to compile
     private final int status;
     private final String reason;
     private final boolean attack;
@@ -43,7 +43,7 @@ public final class Condition {
         this.attack = attack;
     }
 
-    // ---- factorías ----
+    // ---- factories ----
 
     public static Condition group(Op op, List<Condition> nodes) {
         return new Condition(op, nodes, null, null, null, 0, null, false);
@@ -73,7 +73,7 @@ public final class Condition {
         return new Condition(Op.MATCH, null, MType.REASON, null, null, 0, phrase, attack);
     }
 
-    // ---- evaluación ----
+    // ---- evaluation ----
 
     public boolean eval(ResponsePair rp) {
         switch (op) {

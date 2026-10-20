@@ -5,16 +5,16 @@ import burp.api.montoya.persistence.Preferences;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Configuración en runtime, compartida entre la UI y los handlers de detección.
- * Thread-safe. Si se le pasa {@link Preferences}, los ajustes se persisten entre
- * reinicios de Burp (a nivel de usuario, no por proyecto).
+ * Runtime configuration, shared between the UI and the detection handlers.
+ * Thread-safe. When given {@link Preferences}, the settings are persisted
+ * across Burp restarts (at user level, not per project).
  */
 public final class Config {
 
     private static final String KEY_PASSIVE = "wafdetector.passiveEnabled";
     private static final String KEY_FINDALL = "wafdetector.findAll";
 
-    private final Preferences prefs; // puede ser null (p.ej. en tests)
+    private final Preferences prefs; // may be null (e.g. in tests)
     private final AtomicBoolean passiveEnabled;
     private final AtomicBoolean findAll;
 
@@ -47,7 +47,7 @@ public final class Config {
         try {
             prefs.setBoolean(key, value);
         } catch (RuntimeException ignore) {
-            // persistencia best-effort
+            // best-effort persistence
         }
     }
 

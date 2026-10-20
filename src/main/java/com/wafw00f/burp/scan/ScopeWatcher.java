@@ -19,10 +19,11 @@ import java.util.List;
 import java.util.concurrent.Executor;
 
 /**
- * Al cambiar el scope (p.ej. al añadir un target), repasa pasivamente las
- * entradas del site map ya capturadas para hosts en scope. Así "cuando se añade
- * un target a scope" la detección pasiva corre de inmediato sobre lo que ya hay,
- * sin esperar a nuevo tráfico ni lanzar requests.
+ * When the scope changes (for example, when a target is added), passively
+ * rescans the site-map entries already captured for in-scope hosts. This way
+ * "when a target is added to scope" the passive detection runs immediately on
+ * what has been captured already, without waiting for new traffic or sending
+ * any request.
  */
 public final class ScopeWatcher implements ScopeChangeHandler {
 

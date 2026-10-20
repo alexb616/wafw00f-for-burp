@@ -1,11 +1,11 @@
 package com.wafw00f.burp.engine;
 
 /**
- * Par (respuesta normal, respuesta de ataque) sobre el que se evalúan las firmas.
- * En modo activo son dos respuestas distintas (wafw00f: self.rq y self.attackres).
- * En modo pasivo ambas apuntan a la misma respuesta observada, de modo que las
- * firmas de página de bloqueo (attack=true) solo saltan si el tráfico capturado
- * ya era una página de bloqueo.
+ * (normal response, attack response) pair against which signatures are
+ * evaluated. In active mode they are two different responses (wafw00f:
+ * self.rq and self.attackres). In passive mode both point to the same
+ * observed response, so block-page signatures (attack=true) only fire if the
+ * captured traffic was already a block page.
  */
 public final class ResponsePair {
 
@@ -17,7 +17,7 @@ public final class ResponsePair {
         this.attack = attack;
     }
 
-    /** Par pasivo: la misma respuesta hace de normal y de ataque. */
+    /** Passive pair: the same response plays both the normal and attack role. */
     public static ResponsePair passive(ResponseView observed) {
         return new ResponsePair(observed, observed);
     }

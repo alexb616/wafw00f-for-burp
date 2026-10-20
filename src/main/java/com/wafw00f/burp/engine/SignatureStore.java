@@ -17,10 +17,10 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 /**
- * Carga signatures.json y wafprio.json (recursos empaquetados en el JAR),
- * compila las regex y ordena las firmas por prioridad, replicando el
- * 'checklist' de wafw00f/main.py: primero las priorizadas (orden de wafprio),
- * luego el resto.
+ * Loads signatures.json and wafprio.json (resources bundled in the JAR),
+ * compiles the regexes and sorts the signatures by priority, mirroring the
+ * 'checklist' in wafw00f/main.py: prioritised ones first (in wafprio order),
+ * everything else after.
  */
 public final class SignatureStore {
 
@@ -69,7 +69,7 @@ public final class SignatureStore {
                 byName.put(name, sig);
             }
 
-            // Orden de prioridad: primero las de wafprio (en ese orden), luego el resto.
+            // Priority order: wafprio first (in that order), then the rest.
             List<Signature> result = new ArrayList<>();
             Set<String> used = new HashSet<>();
             Object prio = prioRoot.get("priority");
@@ -91,7 +91,7 @@ public final class SignatureStore {
             return new SignatureStore(result, errors[0]);
         } catch (IOException | RuntimeException ex) {
             if (logger != null) {
-                logger.accept("[wafw00f] ERROR cargando firmas: " + ex);
+                logger.accept("[wafw00f] ERROR loading signatures: " + ex);
             }
             return new SignatureStore(new ArrayList<>(), 0);
         }
@@ -100,7 +100,7 @@ public final class SignatureStore {
     private static String readResource(String resource) throws IOException {
         try (InputStream in = SignatureStore.class.getResourceAsStream(resource)) {
             if (in == null) {
-                throw new IOException("recurso no encontrado: " + resource);
+                throw new IOException("resource not found: " + resource);
             }
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             byte[] buf = new byte[8192];
@@ -131,7 +131,7 @@ public final class SignatureStore {
             case "match":
                 return buildMatch(o, errors, slug, logger);
             default:
-                throw new IllegalArgumentException("op desconocido: " + op);
+                throw new IllegalArgumentException("unknown op: " + op);
         }
     }
 
@@ -151,7 +151,7 @@ public final class SignatureStore {
             case "reason":
                 return Condition.reason((String) o.get("reason"), attack);
             default:
-                throw new IllegalArgumentException("tipo de match desconocido: " + type);
+                throw new IllegalArgumentException("unknown match type: " + type);
         }
     }
 
@@ -161,10 +161,10 @@ public final class SignatureStore {
         } catch (PatternSyntaxException ex) {
             errors[0]++;
             if (logger != null) {
-                logger.accept("[wafw00f] WARN regex no compila en [" + slug + "]: " + regex
+                logger.accept("[wafw00f] WARN regex failed to compile in [" + slug + "]: " + regex
                         + " -> " + ex.getMessage());
             }
-            return null; // la condición quedará como "nunca casa"
+            return null; // the condition will act as "never matches"
         }
     }
 }

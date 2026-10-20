@@ -17,14 +17,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Punto de entrada de la extensión. Burp descubre esta clase (implementa
- * {@link BurpExtension}) y llama a {@link #initialize}.
+ * Extension entry point. Burp discovers this class (which implements
+ * {@link BurpExtension}) and calls {@link #initialize}.
  *
- * Cableado:
- *  - Detección PASIVA automática: {@link PassiveHttpHandler} sobre tráfico PROXY
- *    en scope + {@link ScopeWatcher} que repasa el site map al cambiar el scope.
- *  - Sondeo ACTIVO manual: botón en la pestaña "wafw00f" y menú contextual.
- *  - Los hallazgos se publican como AuditIssue en Target -> Issues.
+ * Wiring:
+ *  - Automatic PASSIVE detection: {@link PassiveHttpHandler} on in-scope PROXY
+ *    traffic, plus {@link ScopeWatcher} which rescans the site map on scope
+ *    changes.
+ *  - Manual ACTIVE probing: button on the "wafw00f" tab and context menu entry.
+ *  - Findings are published as AuditIssue entries under Target -> Issues.
  */
 public final class WafDetectorExtension implements BurpExtension {
 
@@ -42,7 +43,7 @@ public final class WafDetectorExtension implements BurpExtension {
         IssueReporter reporter = new IssueReporter(api);
         ActiveScanner scanner = new ActiveScanner(api, engine, reporter, state);
 
-        // Executor de un hilo para el trabajo pasivo (no bloquea los hilos del proxy).
+        // Single-thread executor for passive work (keeps proxy threads unblocked).
         ExecutorService passiveExecutor = Executors.newSingleThreadExecutor(r -> {
             Thread t = new Thread(r, "wafw00f-passive");
             t.setDaemon(true);
@@ -50,6 +51,7 @@ public final class WafDetectorExtension implements BurpExtension {
         });
 
         WafDetectorTab tab = new WafDetectorTab(api, config, scanner, state);
+        api.userInterface().applyThemeToComponent(tab.component());
         api.userInterface().registerSuiteTab("wafw00f", tab.component());
         api.userInterface().registerContextMenuItemsProvider(new WafContextMenu(tab));
 
@@ -58,7 +60,10 @@ public final class WafDetectorExtension implements BurpExtension {
         api.scope().registerScopeChangeHandler(
                 new ScopeWatcher(api, config, engine, state, reporter, passiveExecutor));
 
-        api.extension().registerUnloadingHandler(passiveExecutor::shutdownNow);
+        api.extension().registerUnloadingHandler(() -> {
+            passiveExecutor.shutdownNow();
+            tab.shutdown();
+        });
 
         api.logging().logToOutput("[wafw00f] ready. Passive detection "
                 + (config.isPassiveEnabled() ? "ON" : "OFF")

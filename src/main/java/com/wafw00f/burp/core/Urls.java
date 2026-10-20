@@ -2,13 +2,13 @@ package com.wafw00f.burp.core;
 
 import burp.api.montoya.http.HttpService;
 
-/** Utilidades de URL. */
+/** URL utilities. */
 public final class Urls {
 
     private Urls() {
     }
 
-    /** URL raíz "scheme://host[:port]" para asociar el issue al nodo del target. */
+    /** Root URL "scheme://host[:port]" used to attach the issue to the target node. */
     public static String base(HttpService service) {
         String scheme = service.secure() ? "https" : "http";
         int port = service.port();

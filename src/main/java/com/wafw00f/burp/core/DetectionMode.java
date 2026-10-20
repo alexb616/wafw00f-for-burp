@@ -1,12 +1,12 @@
 package com.wafw00f.burp.core;
 
 /**
- * Cómo se obtuvieron las respuestas que se evalúan contra las firmas.
+ * How the responses evaluated against the signatures were obtained.
  */
 public enum DetectionMode {
-    /** Solo tráfico ya capturado por el proxy; no se lanza ninguna request nueva. */
+    /** Only traffic already captured by the proxy; no new request is sent. */
     PASSIVE("Passive"),
-    /** Sondeo activo estilo wafw00f: request normal + request de ataque. */
+    /** wafw00f-style active probe: normal request plus attack request. */
     ACTIVE("Active");
 
     private final String label;

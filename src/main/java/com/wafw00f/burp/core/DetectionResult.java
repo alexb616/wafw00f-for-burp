@@ -3,22 +3,22 @@ package com.wafw00f.burp.core;
 import burp.api.montoya.http.message.HttpRequestResponse;
 
 /**
- * Un resultado de detección sobre un host, con la evidencia que lo motivó.
- * Puede representar un WAF concreto, la detección genérica, o la ausencia de WAF
- * tras un sondeo activo ({@link #isNone()}).
+ * A detection result for a host, with the evidence that triggered it. Can
+ * represent a concrete WAF, the generic detection, or the absence of a WAF
+ * after an active probe ({@link #isNone()}).
  */
 public final class DetectionResult {
 
     public static final String GENERIC = "Generic";
     public static final String NONE = "None";
 
-    private final String wafName;        // p.ej. "Cloudflare (Cloudflare Inc.)", "Generic" o "None"
-    private final String firewall;       // p.ej. "Cloudflare"
-    private final String manufacturer;   // p.ej. "Cloudflare Inc."
+    private final String wafName;        // e.g. "Cloudflare (Cloudflare Inc.)", "Generic" or "None"
+    private final String firewall;       // e.g. "Cloudflare"
+    private final String manufacturer;   // e.g. "Cloudflare Inc."
     private final DetectionMode mode;
-    private final String evidence;       // descripción legible del motivo
-    private final HttpRequestResponse evidenceExchange; // puede ser null
-    private final boolean none;          // true = sondeo hecho, ningún WAF
+    private final String evidence;       // human-readable reason
+    private final HttpRequestResponse evidenceExchange; // may be null
+    private final boolean none;          // true = probe performed, no WAF
 
     public DetectionResult(String wafName, String firewall, String manufacturer,
                            DetectionMode mode, String evidence,
@@ -33,8 +33,8 @@ public final class DetectionResult {
     }
 
     /**
-     * Construye el resultado a partir del NAME de wafw00f ("Firewall (Fabricante)"),
-     * replicando buildResultRecord() de wafw00f/main.py.
+     * Builds the result from the wafw00f NAME ("Firewall (Manufacturer)"),
+     * mirroring buildResultRecord() in wafw00f/main.py.
      */
     public static DetectionResult fromWafName(String wafName, DetectionMode mode,
                                               String evidence, HttpRequestResponse exchange) {
@@ -58,7 +58,7 @@ public final class DetectionResult {
         return new DetectionResult(GENERIC, GENERIC, "Unknown", mode, evidence, exchange, false);
     }
 
-    /** Sondeo realizado sin detectar ningún WAF. */
+    /** Probe performed with no WAF detected. */
     public static DetectionResult none(DetectionMode mode, String evidence, HttpRequestResponse exchange) {
         return new DetectionResult(NONE, NONE, NONE, mode, evidence, exchange, true);
     }

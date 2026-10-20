@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Añade "wafw00f: active probe this host" al menú contextual sobre
- * cualquier request/response (Proxy history, Repeater, Target, etc.).
+ * Adds "wafw00f: active probe this host" to the context menu on any
+ * request/response (Proxy history, Repeater, Target, etc.).
  */
 public final class WafContextMenu implements ContextMenuItemsProvider {
 
@@ -41,7 +41,7 @@ public final class WafContextMenu implements ContextMenuItemsProvider {
             try {
                 return selected.get(0).request().url();
             } catch (RuntimeException ignore) {
-                // request malformada: probamos la otra vía
+                // malformed request: try the other path
             }
         }
         Optional<MessageEditorHttpRequestResponse> editor = event.messageEditorRequestResponse();
@@ -49,7 +49,7 @@ public final class WafContextMenu implements ContextMenuItemsProvider {
             try {
                 return editor.get().requestResponse().request().url();
             } catch (RuntimeException ignore) {
-                // sin URL utilizable
+                // no usable URL
             }
         }
         return null;
