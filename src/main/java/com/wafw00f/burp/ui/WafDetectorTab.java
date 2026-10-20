@@ -32,8 +32,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Pestaña de la extensión: activar/desactivar la detección pasiva, lanzar el
- * sondeo activo manual contra una URL y ver la tabla de hallazgos y un log.
+ * Extension tab: toggle passive detection, launch a manual active probe
+ * against a URL, and view the detection table and a log.
  */
 public final class WafDetectorTab {
 
@@ -74,7 +74,7 @@ public final class WafDetectorTab {
     private void build() {
         root.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // --- controles ---
+        // --- controls ---
         JPanel controls = new JPanel();
         controls.setLayout(new BoxLayout(controls, BoxLayout.Y_AXIS));
 
@@ -112,7 +112,7 @@ public final class WafDetectorTab {
         controls.add(optionsRow);
         controls.add(scanRow);
 
-        // --- tabla + log ---
+        // --- table + log ---
         JTable table = new JTable(tableModel);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane tableScroll = new JScrollPane(table);
@@ -134,7 +134,7 @@ public final class WafDetectorTab {
         return root;
     }
 
-    /** Lanza un sondeo activo en segundo plano (desde el botón o el menú contextual). */
+    /** Launches an active probe in the background (from the button or the context menu). */
     public void runActiveScan(String rawUrl) {
         final String url = normalize(rawUrl);
         if (url == null) {
@@ -198,8 +198,13 @@ public final class WafDetectorTab {
             return null;
         }
         if (!url.startsWith("http://") && !url.startsWith("https://")) {
-            url = "https://" + url; // wafw00f asume https si falta el esquema
+            url = "https://" + url; // wafw00f assumes https when the scheme is missing
         }
         return url;
+    }
+
+    /** Shuts down the background executor so no threads leak on extension unload. */
+    public void shutdown() {
+        scanExecutor.shutdownNow();
     }
 }

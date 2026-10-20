@@ -5,21 +5,21 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Estado de deduplicación: qué WAFs se han reportado ya por host, para no crear
- * issues repetidos cuando el mismo host genera mucho tráfico en el proxy.
+ * Deduplication state: which WAFs have already been reported per host, so we
+ * don't create repeated issues when a host produces a lot of proxy traffic.
  */
 public final class DetectionState {
 
     private final Map<String, Set<String>> reportedByHost = new ConcurrentHashMap<>();
 
-    /** Registra (host, waf); devuelve true si es la primera vez (hay que reportar). */
+    /** Records (host, waf); returns true the first time (callers should report). */
     public boolean shouldReport(String host, String wafName) {
         return reportedByHost
                 .computeIfAbsent(host, h -> ConcurrentHashMap.newKeySet())
                 .add(wafName);
     }
 
-    /** ¿Ya se ha reportado algún WAF para este host? */
+    /** Whether any WAF has already been reported for this host. */
     public boolean hasAny(String host) {
         Set<String> set = reportedByHost.get(host);
         return set != null && !set.isEmpty();

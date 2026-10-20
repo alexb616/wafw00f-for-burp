@@ -9,8 +9,8 @@ import burp.api.montoya.scanner.audit.issues.AuditIssueSeverity;
 import com.wafw00f.burp.core.DetectionResult;
 
 /**
- * Crea un {@link AuditIssue} informativo y lo añade al site map, de modo que
- * aparezca en Target -> Issues bajo el host correspondiente.
+ * Builds an informational {@link AuditIssue} and adds it to the site map so it
+ * appears under Target -> Issues for the corresponding host.
  */
 public final class IssueReporter {
 

@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Parser JSON mínimo y sin dependencias (recursive descent), suficiente para
- * leer signatures.json / wafprio.json. Devuelve un grafo de objetos:
- * {@link Map} (objeto), {@link List} (array), {@link String}, {@link Long} o
- * {@link Double} (número), {@link Boolean} y {@code null}.
+ * Minimal zero-dependency JSON parser (recursive descent), sufficient to read
+ * signatures.json / wafprio.json. Returns an object graph: {@link Map}
+ * (object), {@link List} (array), {@link String}, {@link Long} or
+ * {@link Double} (number), {@link Boolean} and {@code null}.
  *
- * Se evita así empaquetar una librería externa (gson): el JAR queda limpio.
+ * Avoids bundling an external library (such as gson): the JAR stays lean.
  */
 public final class Json {
 

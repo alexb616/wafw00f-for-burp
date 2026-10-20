@@ -8,10 +8,10 @@ import com.wafw00f.burp.core.DetectionResult;
 import com.wafw00f.burp.http.ActiveProber;
 
 /**
- * Detección genérica basada en comportamiento, portada de genericdetect() de
- * wafw00f/main.py. Se usa como fallback cuando ninguna firma casa: compara la
- * respuesta normal con las de ataque (código de estado, cabecera Server y
- * respuesta sin User-Agent) para inferir la presencia de un WAF.
+ * Behaviour-based generic detection, ported from genericdetect() in
+ * wafw00f/main.py. Used as a fallback when no signature matches: compares the
+ * normal response with the attack responses (status code, Server header and
+ * no-User-Agent response) to infer the presence of a WAF.
  */
 public final class GenericDetector {
 
@@ -42,11 +42,11 @@ public final class GenericDetector {
                                          HttpRequestResponse normalRR, HttpRequestResponse attackRR) {
         int normalStatus = status(normalRR);
         if (normalStatus < 0) {
-            // La request normal no llegó: bloqueo a nivel de conexión/paquete.
+            // The normal request did not reach the server: connection/packet-level blocking.
             return DetectionResult.generic(DetectionMode.ACTIVE, REASONS[0], normalRR);
         }
 
-        // 1) Respuesta sin cabecera User-Agent.
+        // 1) Response without the User-Agent header.
         HttpRequestResponse noUaRR = prober.send(prober.withoutUserAgent(base));
         int noUaStatus = status(noUaRR);
         if (noUaStatus >= 0 && normalStatus != noUaStatus) {
@@ -55,7 +55,7 @@ public final class GenericDetector {
                     noUaRR);
         }
 
-        // 2) XSS: cambio de código de estado.
+        // 2) XSS: status-code change.
         HttpRequestResponse xssRR = prober.send(prober.xssAttack(base));
         if (status(xssRR) < 0) {
             return DetectionResult.generic(DetectionMode.ACTIVE, REASONS[0], xssRR);
@@ -65,7 +65,7 @@ public final class GenericDetector {
                     REASONS[2] + " Normal status=" + normalStatus + ", XSS status=" + status(xssRR), xssRR);
         }
 
-        // 3) LFI (en path): cambio de código de estado.
+        // 3) LFI (in path): status-code change.
         HttpRequestResponse lfiRR = prober.send(prober.lfiAttack(base));
         if (status(lfiRR) < 0) {
             return DetectionResult.generic(DetectionMode.ACTIVE, REASONS[0], lfiRR);
@@ -75,7 +75,7 @@ public final class GenericDetector {
                     REASONS[2] + " Normal status=" + normalStatus + ", LFI status=" + status(lfiRR), lfiRR);
         }
 
-        // 4) SQLi: cambio de código de estado.
+        // 4) SQLi: status-code change.
         HttpRequestResponse sqliRR = prober.send(prober.sqliAttack(base));
         if (status(sqliRR) < 0) {
             return DetectionResult.generic(DetectionMode.ACTIVE, REASONS[0], sqliRR);
@@ -85,7 +85,7 @@ public final class GenericDetector {
                     REASONS[2] + " Normal status=" + normalStatus + ", SQLi status=" + status(sqliRR), sqliRR);
         }
 
-        // 5) Cambio de la cabecera Server entre respuesta normal y de ataque.
+        // 5) Server header differs between normal and attack responses.
         String normalServer = server(normalRR);
         String attackServer = server(attackRR);
         if (!attackServer.equals(normalServer)) {
@@ -94,6 +94,6 @@ public final class GenericDetector {
                     attackRR != null ? attackRR : normalRR);
         }
 
-        return null; // sin indicios genéricos
+        return null; // no generic indicators
     }
 }

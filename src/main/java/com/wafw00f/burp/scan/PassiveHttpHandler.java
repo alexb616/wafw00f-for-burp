@@ -23,9 +23,9 @@ import java.util.List;
 import java.util.concurrent.Executor;
 
 /**
- * Detección pasiva: observa las respuestas de tráfico PROXY de hosts en scope
- * y aplica las firmas sin enviar ninguna request. La evaluación se descarga a un
- * executor para no frenar el hilo del proxy. No modifica el tráfico.
+ * Passive detection: observes PROXY-sourced responses for in-scope hosts and
+ * applies the signatures without sending any request. Evaluation is offloaded
+ * to an executor so the proxy thread is never blocked. Traffic is not modified.
  */
 public final class PassiveHttpHandler implements HttpHandler {
 
@@ -81,7 +81,7 @@ public final class PassiveHttpHandler implements HttpHandler {
             String host = req.httpService().host();
             boolean findAll = config.isFindAll();
             if (!findAll && state.hasAny(host)) {
-                return; // ya se detectó un WAF para este host
+                return; // a WAF has already been detected for this host
             }
             ResponsePair rp = ResponsePair.passive(new ResponseView(resp));
             List<Signature> matched = engine.identify(rp, findAll);

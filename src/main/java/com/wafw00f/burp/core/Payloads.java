@@ -3,9 +3,9 @@ package com.wafw00f.burp.core;
 import java.security.SecureRandom;
 
 /**
- * Cargas de ataque y nombres de parámetro aleatorios, idénticas a wafw00f
- * (ver wafw00f/main.py: xsstring, sqlistring, lfistring, rcestring, xxestring
- * y create_random_param_name).
+ * Attack payloads and random parameter names, matching wafw00f (see
+ * wafw00f/main.py: xsstring, sqlistring, lfistring, rcestring, xxestring and
+ * create_random_param_name).
  */
 public final class Payloads {
 
@@ -21,7 +21,7 @@ public final class Payloads {
     private Payloads() {
     }
 
-    /** Nombre de parámetro aleatorio de longitud fija (wafw00f usa 8). */
+    /** Random parameter name of fixed length (wafw00f uses 8). */
     public static String randomParam(int size) {
         StringBuilder sb = new StringBuilder(size);
         for (int i = 0; i < size; i++) {

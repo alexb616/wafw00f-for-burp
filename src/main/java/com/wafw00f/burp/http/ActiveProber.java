@@ -10,11 +10,11 @@ import burp.api.montoya.http.message.requests.HttpRequest;
 import com.wafw00f.burp.core.Payloads;
 
 /**
- * Construye y envía las requests del sondeo activo, replicando wafw00f:
- * cabeceras por defecto de navegador, request normal, centralAttack
- * (XSS+SQLi+LFI en parámetros GET con nombres aleatorios) y las variantes
- * individuales que usa la detección genérica. Sigue redirecciones (como
- * wafw00f con allow_redirects=True).
+ * Builds and sends the active-probe requests, mirroring wafw00f: default
+ * browser headers, normal request, centralAttack (XSS+SQLi+LFI in GET
+ * parameters with random names) and the individual variants used by the
+ * generic detection. Follows redirects (like wafw00f with
+ * allow_redirects=True).
  */
 public final class ActiveProber {
 
@@ -32,7 +32,7 @@ public final class ActiveProber {
         this.options = RequestOptions.requestOptions().withRedirectionMode(RedirectionMode.ALWAYS);
     }
 
-    /** Request base (GET al target) con las cabeceras de navegador de wafw00f. */
+    /** Base request (GET to the target) with wafw00f's browser headers. */
     public HttpRequest base(String url) {
         return HttpRequest.httpRequestFromUrl(url)
                 .withHeader("User-Agent", UA)
@@ -46,7 +46,7 @@ public final class ActiveProber {
         return api.http().sendRequest(request, options);
     }
 
-    /** centralAttack: XSS + SQLi + LFI en tres parámetros GET aleatorios. */
+    /** centralAttack: XSS + SQLi + LFI across three random GET parameters. */
     public HttpRequest centralAttack(HttpRequest base) {
         return base.withAddedParameters(
                 HttpParameter.urlParameter(Payloads.randomParam(), Payloads.XSS),
@@ -62,7 +62,7 @@ public final class ActiveProber {
         return base.withAddedParameters(HttpParameter.urlParameter(Payloads.randomParam(), Payloads.SQLI));
     }
 
-    /** lfiAttack: wafw00f lo inyecta en el PATH (path + '../../etc/passwd'). */
+    /** lfiAttack: wafw00f injects it in the PATH (path + '../../etc/passwd'). */
     public HttpRequest lfiAttack(HttpRequest base) {
         String path = base.pathWithoutQuery();
         if (path == null || path.isEmpty()) {

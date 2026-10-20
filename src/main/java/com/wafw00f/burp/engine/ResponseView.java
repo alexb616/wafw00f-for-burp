@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Vista ligera sobre una {@link HttpResponse} para las comprobaciones de firma.
- * Cachea el cuerpo como String (las firmas de contenido lo recorren varias veces).
- * Un view sin respuesta ({@link #present()} == false) hace fallar toda comprobación,
- * igual que en wafw00f cuando la respuesta es None.
+ * Lightweight view over an {@link HttpResponse} used by the signature checks.
+ * Caches the body as a String (content signatures scan it several times). A
+ * view with no response ({@link #present()} == false) makes every check fail,
+ * matching wafw00f's behaviour when the response is None.
  */
 public final class ResponseView {
 
@@ -33,7 +33,7 @@ public final class ResponseView {
         return response == null ? null : response.reasonPhrase();
     }
 
-    /** Todos los valores de las cabeceras con ese nombre (case-insensitive). */
+    /** All header values whose name matches (case-insensitive). */
     public List<String> headerValues(String name) {
         List<String> out = new ArrayList<>();
         if (response == null) {
