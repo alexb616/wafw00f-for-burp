@@ -1,10 +1,18 @@
 # wafw00f for Burp
 
-A native **Burp Suite** extension (Montoya API) that brings the detection logic of
-[**wafw00f**](https://github.com/enablesecurity/wafw00f) directly into Burp. It
-fingerprints the Web Application Firewall / CDN / security solution protecting a
-site from its HTTP responses, and publishes the findings as **issues** attached to
-the target in *Target → Issues*.
+*Native Burp Suite extension (Montoya API) that fingerprints WAFs on in-scope
+traffic, using the wafw00f signature set.*
+
+A native **Burp Suite** extension (Montoya API) that brings the detection
+intelligence of [**wafw00f**](https://github.com/enablesecurity/wafw00f) into
+Burp as a first-class citizen. It detects the Web Application Firewall / CDN /
+security solution protecting a site by inspecting HTTP responses on in-scope
+Proxy and Repeater traffic (zero new requests), with an on-demand active probe
+that sends wafw00f's standard attack request to force block-page signatures.
+172 declarative signatures are evaluated by a boolean-tree engine; findings are
+published as `AuditIssue` entries in *Target → Issues*, with the triggering
+request/response as evidence. Works in Burp Community and Professional on the
+JRE 17+ bundled with Burp.
 
 > **Credit — this is a port, not the original tool.**
 > All detection intelligence (the WAF signatures and the generic-detection
@@ -156,6 +164,21 @@ src/main/java/com/wafw00f/burp/
 - Passive mode only looks at in-scope **Proxy**/**Repeater** traffic.
 - Room to grow: tuning signatures, exporting results (CSV/JSON like wafw00f), or
   registering an optional passive `ScanCheck` to integrate with Burp's own scans.
+
+## Compatibility
+
+- Works in **Burp Suite Community** and **Professional**.
+- Requires the **JRE 17+** bundled with Burp.
+- Results are published as `AuditIssue` entries in *Target → Issues*,
+  visible in both editions. Integration with Burp's own active scanner
+  is a Pro feature that this extension does not require.
+
+## Credits
+
+- Detection intelligence (WAF signatures, generic detection, priority
+  order) from [wafw00f](https://github.com/enablesecurity/wafw00f),
+  (c) EnableSecurity and contributors.
+- Montoya API (c) PortSwigger Ltd.
 
 ## License
 
