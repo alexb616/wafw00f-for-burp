@@ -145,10 +145,10 @@ src/main/java/com/wafw00f/burp/
 - Room to grow: tuning signatures, exporting results (CSV/JSON like wafw00f), or
   registering an optional passive `ScanCheck` to integrate with Burp's own scans.
 
-## License and attribution
+## License
 
-This is an independent port of wafw00f for Burp Suite. The WAF signatures and the
-detection approach originate from [wafw00f](https://github.com/enablesecurity/wafw00f)
-by EnableSecurity and are © their respective authors. Please refer to the upstream
-wafw00f project for the original tool, its license, and the authoritative signature
-set.
+Released under the **BSD 3-Clause License**, matching the upstream
+[wafw00f](https://github.com/enablesecurity/wafw00f) project. See `LICENSE` for
+the full text and `NOTICE` for attribution to the upstream wafw00f project
+(signatures © EnableSecurity and contributors) and to PortSwigger (Montoya
+API).
