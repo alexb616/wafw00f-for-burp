@@ -1,10 +1,18 @@
 # wafw00f for Burp
 
-A native **Burp Suite** extension (Montoya API) that brings the detection logic of
-[**wafw00f**](https://github.com/enablesecurity/wafw00f) directly into Burp. It
-fingerprints the Web Application Firewall / CDN / security solution protecting a
-site from its HTTP responses, and publishes the findings as **issues** attached to
-the target in *Target → Issues*.
+*Native Burp Suite extension (Montoya API) that fingerprints WAFs on in-scope
+traffic, using the wafw00f signature set.*
+
+A native **Burp Suite** extension (Montoya API) that brings the detection
+intelligence of [**wafw00f**](https://github.com/enablesecurity/wafw00f) into
+Burp as a first-class citizen. It detects the Web Application Firewall / CDN /
+security solution protecting a site by inspecting HTTP responses on in-scope
+Proxy and Repeater traffic (zero new requests), with an on-demand active probe
+that sends wafw00f's standard attack request to force block-page signatures.
+172 declarative signatures are evaluated by a boolean-tree engine; findings are
+published as `AuditIssue` entries in *Target → Issues*, with the triggering
+request/response as evidence. Works in Burp Community and Professional on the
+JRE 17+ bundled with Burp.
 
 > **Credit — this is a port, not the original tool.**
 > All detection intelligence (the WAF signatures and the generic-detection
@@ -94,11 +102,23 @@ Or with a system Gradle: `gradle jar`.
 
 The JAR is produced at `build/libs/wafw00f-for-burp-0.1.0.jar`.
 
-> The Montoya API is compiled against `libs/montoya-api-2026.7.jar` (included) so the
-> build does not depend on Maven Central. If your team has Maven Central access, you
-> can replace it in `build.gradle` with
-> `compileOnly 'net.portswigger.burp.extensions:montoya-api:2026.7'`
-> by adding `repositories { mavenCentral() }`.
+The default build resolves the Montoya API from **Maven Central**
+(`net.portswigger.burp.extensions:montoya-api:2026.7`, declared in
+`build.gradle`). The Montoya API is `compileOnly` — Burp supplies it at
+runtime — so no runtime dependencies are added.
+
+### Offline / air-gapped fallback
+
+The repo also ships `libs/montoya-api-2026.7.jar` precisely for environments
+without Maven Central access. To build offline, swap the dependency in
+`build.gradle` to the local jar and drop the `repositories` block:
+
+```groovy
+// repositories { mavenCentral() }
+dependencies {
+    compileOnly files('libs/montoya-api-2026.7.jar')
+}
+```
 
 ## Load into Burp
 
@@ -145,10 +165,25 @@ src/main/java/com/wafw00f/burp/
 - Room to grow: tuning signatures, exporting results (CSV/JSON like wafw00f), or
   registering an optional passive `ScanCheck` to integrate with Burp's own scans.
 
-## License and attribution
+## Compatibility
 
-This is an independent port of wafw00f for Burp Suite. The WAF signatures and the
-detection approach originate from [wafw00f](https://github.com/enablesecurity/wafw00f)
-by EnableSecurity and are © their respective authors. Please refer to the upstream
-wafw00f project for the original tool, its license, and the authoritative signature
-set.
+- Works in **Burp Suite Community** and **Professional**.
+- Requires the **JRE 17+** bundled with Burp.
+- Results are published as `AuditIssue` entries in *Target → Issues*,
+  visible in both editions. Integration with Burp's own active scanner
+  is a Pro feature that this extension does not require.
+
+## Credits
+
+- Detection intelligence (WAF signatures, generic detection, priority
+  order) from [wafw00f](https://github.com/enablesecurity/wafw00f),
+  (c) EnableSecurity and contributors.
+- Montoya API (c) PortSwigger Ltd.
+
+## License
+
+Released under the **BSD 3-Clause License**, matching the upstream
+[wafw00f](https://github.com/enablesecurity/wafw00f) project. See `LICENSE` for
+the full text and `NOTICE` for attribution to the upstream wafw00f project
+(signatures © EnableSecurity and contributors) and to PortSwigger (Montoya
+API).

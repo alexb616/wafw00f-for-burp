@@ -5,17 +5,19 @@ plugins {
 group = 'com.wafw00f.burp'
 version = '0.1.0'
 
-// No remote repositories are used: the only external artifact is the Montoya API,
-// which is compiled against the local jar in libs/ (and provided by Burp at runtime).
-// If your machine has access to Maven Central, you can replace the local dependency
-// with:   compileOnly 'net.portswigger.burp.extensions:montoya-api:2026.7'
-// adding   repositories { mavenCentral() }.
+// Montoya API publicado por PortSwigger en Maven Central. Si tu entorno no tiene
+// acceso a Maven Central, puedes conmutar a 'compileOnly files("libs/montoya-api-2026.7.jar")'
+// y comentar el bloque repositories; el libs/ se mantiene en el repo precisamente
+// para ese caso offline.
+repositories {
+    mavenCentral()
+}
+
 dependencies {
-    compileOnly files('libs/montoya-api-2026.7.jar')
+    compileOnly 'net.portswigger.burp.extensions:montoya-api:2026.7'
 }
 
 java {
-    // Java 17 bytecode: loads on the JRE shipped with Burp (17+). Built with JDK 21.
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }
@@ -24,8 +26,6 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
-// Self-contained JAR with no runtime dependencies (the JSON parser is our own).
-// Automatically bundles src/main/resources (signatures.json, wafprio.json).
 jar {
     archiveBaseName = 'wafw00f-for-burp'
     manifest {

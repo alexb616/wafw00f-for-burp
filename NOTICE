@@ -1,0 +1,13 @@
+wafw00f for Burp
+Copyright 2026 Alejandro Baño
+
+This product bundles signatures derived from the wafw00f project
+(https://github.com/enablesecurity/wafw00f), (c) EnableSecurity and
+contributors, licensed under the BSD 3-Clause License. The derivative
+signatures live in src/main/resources/com/wafw00f/burp/signatures.json
+and src/main/resources/com/wafw00f/burp/wafprio.json. See the upstream
+project for the authoritative signature set.
+
+The Montoya API (libs/montoya-api-2026.7.jar) is (c) PortSwigger Ltd.,
+used under its own licence; it is provided by Burp at runtime and is
+not redistributed as part of this project's binary artifact.
