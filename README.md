@@ -94,11 +94,23 @@ Or with a system Gradle: `gradle jar`.
 
 The JAR is produced at `build/libs/wafw00f-for-burp-0.1.0.jar`.
 
-> The Montoya API is compiled against `libs/montoya-api-2026.7.jar` (included) so the
-> build does not depend on Maven Central. If your team has Maven Central access, you
-> can replace it in `build.gradle` with
-> `compileOnly 'net.portswigger.burp.extensions:montoya-api:2026.7'`
-> by adding `repositories { mavenCentral() }`.
+The default build resolves the Montoya API from **Maven Central**
+(`net.portswigger.burp.extensions:montoya-api:2026.7`, declared in
+`build.gradle`). The Montoya API is `compileOnly` — Burp supplies it at
+runtime — so no runtime dependencies are added.
+
+### Offline / air-gapped fallback
+
+The repo also ships `libs/montoya-api-2026.7.jar` precisely for environments
+without Maven Central access. To build offline, swap the dependency in
+`build.gradle` to the local jar and drop the `repositories` block:
+
+```groovy
+// repositories { mavenCentral() }
+dependencies {
+    compileOnly files('libs/montoya-api-2026.7.jar')
+}
+```
 
 ## Load into Burp
 
