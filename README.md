@@ -165,6 +165,20 @@ src/main/java/com/wafw00f/burp/
 - Room to grow: tuning signatures, exporting results (CSV/JSON like wafw00f), or
   registering an optional passive `ScanCheck` to integrate with Burp's own scans.
 
+## Screenshots
+
+![wafw00f tab in Burp — URL field, Run active probe button, passive and find-all toggles, detection table and log.](docs/screenshots/01-tab.png)
+
+*The **wafw00f** tab: URL field, active-probe button, passive and find-all toggles, detection table and log.*
+
+![Right-click menu on a request, showing the "wafw00f: active probe this host" entry.](docs/screenshots/02-context-menu.png)
+
+*Right-click on any request in Proxy history, Repeater or Target → **"wafw00f: active probe this host"**.*
+
+![Target → Issues panel showing AuditIssue entries reported by the extension.](docs/screenshots/03-issues.png)
+
+*Detected WAFs are reported as `AuditIssue` entries under* Target → Issues *with the triggering request/response as evidence.*
+
 ## Compatibility
 
 - Works in **Burp Suite Community** and **Professional**.
